@@ -1,0 +1,13 @@
+{
+    "name": "ttree/plugin-latexeditor",
+    "type": "typo3-flow-plugin",
+    "description": "TYPO3 Neos plugin to edit LaTeX content directly in Neos backend, with automatic conversion to HTML",
+    "require": {
+        "typo3/flow": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Ttree\\Plugin\\LatexEditor": "Classes"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+// Core variables and mixins
+@import "compass";
+@import "../../../../../Application/TYPO3.Neos/Resources/Private/Styles/Foundation/variables"; // Modify this for custom colors, font-sizes, etc
+@import "../../../../../Application/TYPO3.Neos/Resources/Private/Styles/Foundation/mixins";
+@import "../../../../../Application/TYPO3.Neos/Resources/Private/Styles/Constants";
+@import "../../../../../Application/TYPO3.Neos/Resources/Private/Styles/Mixins";
+
+.neos {
+	.neos-secondary-inspector {
+		.neos-secondary-inspector-latex-editor {
+			.cm-s-solarized {
+				.cm-tag {
+					color: $green;
+				}
+			}
+		}
+	}
+}

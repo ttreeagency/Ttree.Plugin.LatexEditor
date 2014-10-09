@@ -1,0 +1,18 @@
+include: TypoScriptObjects/LatexConverter.ts2
+include: NodeTypes/Latex.ts2
+
+# Add custom theme for CodeMirror LaTeX editing
+prototype(TYPO3.Neos:Page) {
+	latexEditorBackendHeader = TYPO3.TypoScript:Template {
+		@position = 'after neosBackendHeader'
+		templatePath = 'resource://Ttree.Plugin.LatexEditor/Private/Templates/TypoScriptObjects/LatexEditorBackendHeaderData.html'
+		node = ${node}
+
+		@cache {
+			mode = 'uncached'
+			context {
+				1 = 'node'
+			}
+		}
+	}
+}

@@ -1,0 +1,21 @@
+'Ttree.Plugin.LatexEditor:Latex':
+  superTypes: ['TYPO3.Neos:Content']
+  ui:
+    label: 'LaTeX'
+    icon: 'icon-code'
+    position: 500
+    inspector:
+      groups:
+        latex:
+          label: 'LaTeX'
+          position: 10
+  properties:
+    source:
+      type: string
+      ui:
+        label: 'Latex Content'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'latex'
+          editor: 'Ttree.Plugin.LatexEditor/Inspector/Editors/LatexEditor'
+      defaultValue: 'Enter Latex here'

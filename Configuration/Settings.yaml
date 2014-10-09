@@ -1,0 +1,14 @@
+
+TYPO3:
+
+  Neos:
+
+    typoScript:
+      autoInclude:
+        'Ttree.Plugin.LatexEditor': TRUE
+
+    userInterface:
+
+      requireJsPathMapping:
+        'Ttree.Plugin.LatexEditor/Inspector/Editors': 'resource://Ttree.Plugin.LatexEditor/Public/JavaScript/Content/Inspector/Editors/'
+        'Ttree.Plugin.LatexEditor/Library': 'resource://Ttree.Plugin.LatexEditor/Public/JavaScript/Library/'

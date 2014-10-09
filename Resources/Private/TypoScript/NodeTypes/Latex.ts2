@@ -1,0 +1,6 @@
+prototype(Ttree.Plugin.LatexEditor:Latex) {
+	@override.source = ${this.source}
+	source = Ttree.Plugin.LatexEditor:LatexConverter {
+		source = ${source}
+	}
+}
