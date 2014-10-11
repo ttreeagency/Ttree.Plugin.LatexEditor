@@ -1,4 +1,9 @@
 
+Ttree:
+  Plugin:
+    LatexEditor:
+      temporaryPath: '%FLOW_PATH_DATA%Temporary/LatexEditor/Rendering/'
+
 TYPO3:
 
   Neos:
