@@ -11,24 +11,30 @@ namespace Ttree\Plugin\LatexEditor\TypoScriptObjects;
  * The TYPO3 project - inspiring people to share!                             *
  *                                                                            */
 
+use Ttree\Plugin\LatexEditor\Service\LatexConverterService;
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Utility\Files;
+use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 use TYPO3\TypoScript\TypoScriptObjects\AbstractTypoScriptObject;
 
 /**
- * Convert the Latex Source to a HTML string
+ * TypoScript2 implementation to convert the Latex Source to a HTML string
  *
  * @api
  */
 class LatexConverterImplementation extends AbstractTypoScriptObject {
 
-	const PARSE_ERROR = 'Please insert a valid LaTeX Source';
+	/**
+	 * @Flow\Inject
+	 * @var LatexConverterService
+	 */
+	protected $latexConverter;
 
 	/**
-	 * @Flow\Inject(setting="temporaryPath")
-	 * @var string
+	 * @return NodeInterface
 	 */
-	protected $temporaryPath;
+	public function getNode() {
+		return $this->tsValue('node');
+	}
 
 	/**
 	 * @return string
@@ -43,25 +49,7 @@ class LatexConverterImplementation extends AbstractTypoScriptObject {
 	 * @return string
 	 */
 	public function evaluate() {
-		$source = $this->getSource() ?: NULL;
-
-		if ($source === NULL) {
-			return self::PARSE_ERROR;
-		}
-
-		$temporaryFile = $this->temporaryPath . uniqid();
-		$texFile = $temporaryFile . '.tex';
-		$htmlFile = $temporaryFile . '.html';
-		Files::createDirectoryRecursively($this->temporaryPath);
-		file_put_contents($texFile, $source);
-		chdir($this->temporaryPath);
-		$command = 'sudo /usr/texbin/htlatex ' . $texFile . ' "xhtml, charset=utf-8" " -cunihtf -utf8"';
-		shell_exec($command);
-		if (@is_file($htmlFile)) {
-			$content = Files::getFileContents($htmlFile);
-			preg_match("/(?:<body[^>]*>)(.*)<\/body>/isU", $content, $matches);
-			return isset($matches[1]) ? $matches[1] : '';
-		}
-		return self::PARSE_ERROR;
+		$node = $this->getNode();
+		return $this->latexConverter->convert($this->getSource(), $node ? $node->getIdentifier() : NULL);
 	}
 }

@@ -1,3 +1,5 @@
 prototype(Ttree.Plugin.LatexEditor:LatexConverter) {
 	@class = 'Ttree\\Plugin\\LatexEditor\\TypoScriptObjects\\LatexConverterImplementation'
+
+	node = ${node}
 }
