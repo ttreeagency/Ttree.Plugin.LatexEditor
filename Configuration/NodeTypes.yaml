@@ -18,4 +18,3 @@
         inspector:
           group: 'latex'
           editor: 'Ttree.Plugin.LatexEditor/Inspector/Editors/LatexEditor'
-      defaultValue: 'Enter Latex here'

@@ -1,10 +1,15 @@
 prototype(Ttree.Plugin.LatexEditor:Latex) {
 	@override.source = ${q(node).property('source')}
+
 	source = Ttree.Plugin.LatexEditor:LatexConverter {
 		source = ${source}
 
 		@process.convertUris = TYPO3.Neos:ConvertUris {
 			forceConversion = true
 		}
+	}
+
+	attributes = TYPO3.TypoScript:Attributes {
+		class = 'latex-document'
 	}
 }

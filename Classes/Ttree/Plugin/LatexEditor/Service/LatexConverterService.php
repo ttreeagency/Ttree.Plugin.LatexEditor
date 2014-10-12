@@ -55,6 +55,12 @@ class LatexConverterService {
 	protected $temporaryPath;
 
 	/**
+	 * @Flow\Inject(setting="htlatexConfiguration")
+	 * @var string
+	 */
+	protected $htlatexConfiguration;
+
+	/**
 	 * Just return the processed value
 	 *
 	 * @param string $source
@@ -74,18 +80,27 @@ class LatexConverterService {
 		Files::createDirectoryRecursively($this->temporaryPath);
 		file_put_contents($texFile, $source);
 		chdir($this->temporaryPath);
-		$command = 'sudo /usr/texbin/htlatex ' . $texFile . ' "xhtml, charset=utf-8" " -cunihtf -utf8"';
+		$command = sprintf('sudo /usr/texbin/htlatex %s "%s, html, charset=utf-8, NoFonts" " -cunihtf -utf8"', $texFile, $this->htlatexConfiguration);
 		shell_exec($command);
 		if (@is_file($htmlFile)) {
 			$content = Files::getFileContents($htmlFile);
 			preg_match(self::EXTRACT_BODY_REGEXP, $content, $matches);
 			$content = isset($matches[1]) ? $matches[1] : '';
 			if ($content !== '') {
+				$content = $this->cleanupContent($content);
 				$content = $this->persistResources($content);
 			}
 			return $content ?: self::PARSE_ERROR;
 		}
 		return self::PARSE_ERROR;
+	}
+
+	/**
+	 * @param string $content
+	 * @return string mixed
+	 */
+	protected function cleanupContent($content) {
+		return preg_replace("/<p[^>]*>[\s|&nbsp;]*<\/p>/", '', $content);
 	}
 
 	/**

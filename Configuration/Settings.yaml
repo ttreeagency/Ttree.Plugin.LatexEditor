@@ -3,6 +3,7 @@ Ttree:
   Plugin:
     LatexEditor:
       temporaryPath: '%FLOW_PATH_DATA%Temporary/LatexEditor/Rendering/'
+      htlatexConfiguration: '%FLOW_PATH_PACKAGES%Plugins/Ttree.Plugin.LatexEditor/Resources/Private/Htlatex/ht5mjlatex.cfg'
 
 TYPO3:
 
